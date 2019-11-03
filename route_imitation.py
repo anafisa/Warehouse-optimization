@@ -1,14 +1,12 @@
-from import1 import wave_floor_id, wave_floor_route
+from import1 import wave_floor_id, wave_floor_route, floors
 from route_time_calc import route_time
 from collections import defaultdict
 
 def ordering(workers, routes):
     d = dict()
-    new_time = []  # время, полученное с учетом нового распределения пик-рейсов
-    [new_time.append(0) for i in range(len(workers))]  # изначально список заполнен нулями
+    new_time = [0] * len(workers)  # время, полученное с учетом нового распределения пик-рейсов, изначально список заполнен нулями
     time = []  # время каждого пик рейса
     new_ordering = defaultdict(lambda: [])
-
 
     for i in routes:
         d[route_time[i]] = i
@@ -27,23 +25,17 @@ def ordering(workers, routes):
                 break
     return [new_time, new_ordering]
 
-# print(ordering(workers, routes))
-
 
 keys = wave_floor_route.keys()
-res = []
-f = ['1', '2', '3', '4']
+res = [[], [], [], [], [], [], []]
 
-for j in f:
-    res = []
+for j in floors:
+    c = 0
     for i in keys:
         workers = wave_floor_id[i][j]
         routes = wave_floor_route[i][j]
-        res.append(max(ordering(workers, routes)[0]))
-    print(res)
+        res[c].append(max(ordering(workers, routes)[0]))
+        c += 1
+a = list(map(max, res))
+print(a)
 
-# 3 этажу нужны работники, он проигрывает по скорости
-# результаты имитационной модели
-# 43 51 48 72 60 44 72
-# результаты УР
-#59 67 79 97 92 72 99

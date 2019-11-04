@@ -1,12 +1,11 @@
-from import1 import wave_workers, wave_floor_route, floors, waves
-from route_time_calc import route_time
-from collections import defaultdict
+from import1 import waves, floors, wave_workers, wave_floor_route
+from route_time_calc import route_time, wave_time
+
 
 k = 0
 res = []
 final = []
 workers = []
-wave_time = defaultdict(lambda: [])
 
 
 def ordering1(n, routes):
@@ -53,15 +52,6 @@ def floor_ordering(time_lst, n):
     return ordering
 
 
-# находим время выполнения каждой волны на каждом этаже
-for i in waves:
-    for j in floors:
-        c = 0
-        routes = wave_floor_route[i][j]
-        for r in routes:
-            c += route_time[r]
-        wave_time[i].append(c)
-
 # распределяем рабочих по этажам
 for w in waves:
     workers.append(floor_ordering(wave_time[w], wave_workers[w]))
@@ -76,4 +66,4 @@ for j in workers:
     res = []
     k += 1
 
-print(final)
+# print(final)

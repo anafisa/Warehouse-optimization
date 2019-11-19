@@ -32,6 +32,9 @@ box_cell = defaultdict(lambda: set())
 floor_box_cell = defaultdict(lambda: box_cell.copy())
 wave_floor_box_cell = defaultdict(lambda: floor_box_cell.copy())
 
+box_cell_lst = defaultdict(lambda: [])
+route_box_cell = defaultdict(lambda: box_cell_lst.copy())
+
 floor_route = defaultdict(lambda: [])
 wave_floor_route = defaultdict(lambda: floor_route.copy())
 
@@ -55,6 +58,8 @@ for i in range(1, 55432):
     wave_id[wave][id][route].append(list(map(int, cell[1:-2].split("-"))))  # {wave1:{id1:[{route1:[cell1,cell2]}], id2}
 
     wave_floor_box_cell[wave][floor][box].add(int(cell[1:3]))
+
+    route_box_cell[route][box].append(int(cell[1:3]))
 
     num_boxes[route].add(box)
 

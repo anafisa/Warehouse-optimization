@@ -1,4 +1,3 @@
-from pprint import pprint
 from openpyxl import load_workbook
 from collections import defaultdict
 
@@ -14,6 +13,10 @@ wave_workers = dict()
 
 route_num = defaultdict(lambda: 0)
 
+box_num = defaultdict(lambda: 0)
+
+num_boxes = defaultdict(lambda: set())
+
 route_cell = defaultdict(lambda: [])
 id_route = defaultdict(lambda: route_cell.copy())
 wave_id = defaultdict(lambda: id_route.copy())
@@ -22,6 +25,12 @@ id_num = defaultdict(lambda: [])
 wave_id_num = defaultdict(lambda: id_num.copy())
 
 route_cell_d = defaultdict(lambda: [])
+
+box_cell_d = defaultdict(lambda: [])
+
+box_cell = defaultdict(lambda: set())
+floor_box_cell = defaultdict(lambda: box_cell.copy())
+wave_floor_box_cell = defaultdict(lambda: floor_box_cell.copy())
 
 floor_route = defaultdict(lambda: [])
 wave_floor_route = defaultdict(lambda: floor_route.copy())
@@ -40,15 +49,24 @@ for i in range(1, 55432):
     route = sheet.cell(row=i, column=10).value
     cell = sheet.cell(row=i, column=12).value
     num = sheet.cell(row=i, column=5).value
+    box = sheet.cell(row=i, column=7).value
     floor = cell[0]
 
     wave_id[wave][id][route].append(list(map(int, cell[1:-2].split("-"))))  # {wave1:{id1:[{route1:[cell1,cell2]}], id2}
+
+    wave_floor_box_cell[wave][floor][box].add(int(cell[1:3]))
+
+    num_boxes[route].add(box)
 
     wave_id_num[wave][id].append(num)  # {wave1:{id1:[num1,num2],id2} - number of goods which picks each person (id)
 
     route_cell_d[route].append(cell)  # {route1:[cell1, cell2], route2:[]}
 
+    box_cell_d[box].append(cell)
+
     route_num[route] += num
+
+    box_num[box] += num
 
     if floor not in floors:
         floors.append(floor)
@@ -69,5 +87,6 @@ for j in wave_id.keys():
     wave_workers[j] = len(wave_id[j].keys())
 
 floors.sort()
+
 
 

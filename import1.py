@@ -11,6 +11,10 @@ floors = []
 
 wave_workers = dict()
 
+route_floor = dict()
+
+box_floor = dict()
+
 route_num = defaultdict(lambda: 0)
 
 box_num = defaultdict(lambda: 0)
@@ -58,6 +62,10 @@ for i in range(1, 55432):
     num = sheet.cell(row=i, column=5).value
     box = sheet.cell(row=i, column=7).value
     floor = cell[0]
+
+    route_floor[route] = floor
+
+    box_floor[box] = floor
 
     wave_id[wave][id][route].append(list(map(int, cell[1:-2].split("-"))))  # {wave1:{id1:[{route1:[cell1,cell2]}], id2}
 

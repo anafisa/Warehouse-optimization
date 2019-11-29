@@ -15,41 +15,42 @@ route_floor = dict()
 
 box_floor = dict()
 
-route_num = defaultdict(lambda: 0)
+route_num = defaultdict(int)
 
-box_num = defaultdict(lambda: 0)
+box_num = defaultdict(int)
 
-num_boxes = defaultdict(lambda: set())
+num_boxes = defaultdict(set)
 
-route_cell = defaultdict(lambda: [])
+route_cell = defaultdict(list)
+
 id_route = defaultdict(lambda: route_cell.copy())
 wave_id = defaultdict(lambda: id_route.copy())
 
-id_num = defaultdict(lambda: [])
+id_num = defaultdict(list)
 wave_id_num = defaultdict(lambda: id_num.copy())
 
-route_cell_d = defaultdict(lambda: [])
+route_cell_d = defaultdict(list)
 
-box_cell_d = defaultdict(lambda: [])
+box_cell_d = defaultdict(list)
 
-box_cell = defaultdict(lambda: set())
+box_cell = defaultdict(set)
 floor_box_cell = defaultdict(lambda: box_cell.copy())
 wave_floor_box_cell = defaultdict(lambda: floor_box_cell.copy())
 
-box_cell_lst = defaultdict(lambda: [])
+box_cell_lst = defaultdict(list)
 route_box_cell = defaultdict(lambda: box_cell_lst.copy())
 
-floor_route = defaultdict(lambda: [])
+floor_route = defaultdict(list)
 wave_floor_route = defaultdict(lambda: floor_route.copy())
 
-route_box = defaultdict(lambda: [])
+route_box = defaultdict(list)
 floor_route_box = defaultdict(lambda: route_box.copy())
 wave_floor_route_box = defaultdict(lambda: floor_route_box.copy())
 
-floor_id = defaultdict(lambda: [])
+floor_id = defaultdict(list)
 wave_floor_id = defaultdict(lambda: floor_id.copy())
 
-idroute = defaultdict(lambda: [])
+idroute = defaultdict(list)
 waveid = defaultdict(lambda: idroute.copy())
 floor_wave_id_route = defaultdict(lambda: waveid.copy())
 

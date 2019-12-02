@@ -1,4 +1,0 @@
-1) cd Des (tab) / python (tab) / my_py (tab)
-2) git add .
-3) git commit -m "mesyaki"
-4) git push 

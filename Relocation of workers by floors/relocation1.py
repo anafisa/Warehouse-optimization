@@ -1,31 +1,24 @@
-from import1 import waves, floors, wave_workers, wave_floor_route
+from data_import import waves, floors, wave_workers, wave_floor_route
 from route_time_calc import route_time, wave_time
-
-
-k = 0
-res = []
-final = []
-workers = []
 
 
 def ordering1(n, routes):
     """
     Функция, которая по распределению рабочих по этажам,формирует пик-рейсы.
-    n - кол-во рабочих, работающих в определенную волну на определенном этаже по новому наспределению
+    n - кол-во рабочих, работающих в определенную волну на определенном этаже по новому распределению
     routes - пик-рейсы, которые выполняются в определенную волну на определенном этаже
     """
-
     d = dict()
-    new_time = [0] * n  # время, полученное с учетом нового распределения пик-рейсов, изначально список заполнен нулями
-    time = []  # время каждого пик рейса
+    new_time = [0] * n
+    time = []
 
     for i in routes:
-        d[route_time[i]] = i  # словарь вида время : пикрейс
+        d[route_time[i]] = i
         time.append(route_time[i])
 
     time = sorted(time, reverse=True)
 
-    while time:  # пока есть нераспределенные пик-рейсы
+    while time:
         for i in range(0, len(new_time)):
             if time:
                 ind = new_time.index(min(new_time))
@@ -52,7 +45,11 @@ def floor_ordering(time_lst, n):
     return ordering
 
 
-# распределяем рабочих по этажам
+k = 0
+res = []
+final = []
+workers = []
+
 for w in waves:
     workers.append(floor_ordering(wave_time[w], wave_workers[w]))
 

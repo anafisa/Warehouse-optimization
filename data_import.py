@@ -21,17 +21,17 @@ box_num = defaultdict(int)
 
 num_boxes = defaultdict(set)
 
-route_cell = defaultdict(list)
+box_cell_d = defaultdict(list)
 
+route_cell_d = defaultdict(list)
+
+
+route_cell = defaultdict(list)
 id_route = defaultdict(lambda: route_cell.copy())
 wave_id = defaultdict(lambda: id_route.copy())
 
 id_num = defaultdict(list)
 wave_id_num = defaultdict(lambda: id_num.copy())
-
-route_cell_d = defaultdict(list)
-
-box_cell_d = defaultdict(list)
 
 box_cell = defaultdict(set)
 floor_box_cell = defaultdict(lambda: box_cell.copy())
@@ -54,37 +54,47 @@ idroute = defaultdict(list)
 waveid = defaultdict(lambda: idroute.copy())
 floor_wave_id_route = defaultdict(lambda: waveid.copy())
 
+order_volume = defaultdict(list)
+floor_order_volume = defaultdict(lambda: order_volume.copy())
+wave_floor_order_volume = defaultdict(lambda: floor_order_volume.copy())
 
 for i in range(1, 55432):
+
     wave = sheet.cell(row=i, column=2).value
+    order = sheet.cell(row=i, column=3).value
+    num = sheet.cell(row=i, column=5).value
+    volume = sheet.cell(row=i,column=6).value
+    box = sheet.cell(row=i, column=7).value
     id = sheet.cell(row=i, column=9).value
     route = sheet.cell(row=i, column=10).value
     cell = sheet.cell(row=i, column=12).value
-    num = sheet.cell(row=i, column=5).value
-    box = sheet.cell(row=i, column=7).value
     floor = cell[0]
 
-    route_floor[route] = floor
+    box_num[box] += num
 
     box_floor[box] = floor
 
-    wave_id[wave][id][route].append(list(map(int, cell[1:-2].split("-"))))  # {wave1:{id1:[{route1:[cell1,cell2]}], id2}
-
-    wave_floor_box_cell[wave][floor][box].add((int(cell[1:3])-1)//2)
-
-    route_box_cell[route][box].append(int(cell[1:3]))
+    route_num[route] += num
 
     num_boxes[route].add(box)
 
-    wave_id_num[wave][id].append(num)  # {wave1:{id1:[num1,num2],id2} - number of goods which picks each person (id)
+    route_floor[route] = floor
 
-    route_cell_d[route].append(cell)  # {route1:[cell1, cell2], route2:[]}
+    box_cell_d[box].append(cell)
 
-    box_cell_d[box].append(int(cell[1:3]))
+    route_cell_d[route].append(cell)
 
-    route_num[route] += num
+    wave_id_num[wave][id].append(num)
 
-    box_num[box] += num
+    route_box_cell[route][box].append(int(cell[1:3]))
+
+    wave_floor_order_volume[wave][floor][order].append([volume, cell])
+
+    wave_floor_box_cell[wave][floor][box].add((int(cell[1:3]) - 1) // 2)
+
+    wave_id[wave][id][route].append(list(map(int, cell[1:-2].split("-"))))
+
+
 
     if floor not in floors:
         floors.append(floor)
@@ -93,10 +103,10 @@ for i in range(1, 55432):
         waves.append(wave)
 
     if route not in wave_floor_route[wave][floor]:
-        wave_floor_route[wave][floor].append(route)  # {wave1:{'1':[r1,r2]}, wave2:}
+        wave_floor_route[wave][floor].append(route)
 
     if id not in wave_floor_id[wave][floor]:
-        wave_floor_id[wave][floor].append(id)  # wave1:{'1':[id1,id2]}, wave2:}
+        wave_floor_id[wave][floor].append(id)
 
     if route not in floor_wave_id_route[floor][wave][id]:
         floor_wave_id_route[floor][wave][id].append(route)

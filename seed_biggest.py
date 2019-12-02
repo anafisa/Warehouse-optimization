@@ -3,15 +3,15 @@ from data_import import wave_floor_box_cell
 
 def big_seed(aiseles):
 
-    carriges = []
-    boxes_in_carrige = 6
+    carts = []
+    boxes_in_cart = 6
 
     boxes = list(aiseles.keys())
-    carriges_num = len(boxes)//boxes_in_carrige
+    cart_num = len(boxes)//boxes_in_cart
     boxes.sort(key=lambda key: len(aiseles[key]))
     boxes.reverse()
 
-    for i in range(carriges_num):
+    for i in range(cart_num):
         dist = dict()
         seed = boxes[0]
         del boxes[0]
@@ -22,17 +22,20 @@ def big_seed(aiseles):
         keys = list(dist.keys())
         keys.sort(key=lambda key: dist[key])
 
-        fit = keys[:boxes_in_carrige-1]
+        fit = keys[:boxes_in_cart-1]
         [boxes.remove(i) for i in fit]
         fit.append(seed)
-        carriges.append(fit)
+        carts.append(fit)
+
     if boxes:
-        carriges.append(boxes)
-    return carriges
+        carts.append(boxes)
+
+    return carts
 
 
-floor1 = big_seed(wave_floor_box_cell[]['1'])
-floor2 = big_seed(wave_floor_box_cell[]['2'])
-floor3 = big_seed(wave_floor_box_cell[]['3'])
-floor4 = big_seed(wave_floor_box_cell[]['4'])
+wave = ''
 
+floor1 = big_seed(wave_floor_box_cell[wave]['1'])
+floor2 = big_seed(wave_floor_box_cell[wave]['2'])
+floor3 = big_seed(wave_floor_box_cell[wave]['3'])
+floor4 = big_seed(wave_floor_box_cell[wave]['4'])

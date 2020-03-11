@@ -10,4 +10,4 @@
 
 Total reached time saving was almost 4h 10m per every working shift.
 
-![](https://sun9-34.userapi.com/cU9tcD1aK8fe8efCcDLUb8xHjOiaLhiAZdCJyg/XU3ysLNLWaQ.jpg)
+![](https://sun9-31.userapi.com/N-zbglwWPbAhi2XQCQQnlRKZbnyftErmQ6RB9Q/WI3-5uFGdfk.jpg)

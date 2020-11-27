@@ -1,5 +1,4 @@
-# Warehouse-optimization
-> Optimization of warehouse working process 
+# Optimization of warehouse working process 
 ## The main work stages
 1. [Time calculation of initial work shift](https://github.com/anafisa/Warehouse-optimization/tree/master/Real%20time%20calculation)
 2. [Сreating a simulation model of work shift](https://github.com/anafisa/Warehouse-optimization/tree/master/Route%20imitation)
